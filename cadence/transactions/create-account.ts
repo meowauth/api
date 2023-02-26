@@ -1,5 +1,5 @@
 export const CREATE_ACCOUNT = `
-import ChildAccount from 0xChildAccount.cdc
+import ChildAccount from 0xChildAccount
 import MetadataViews from 0xMetadataViews
 import FungibleToken from 0xFungibleToken
 
