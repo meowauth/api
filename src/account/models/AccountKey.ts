@@ -14,6 +14,5 @@ export interface AccountKeyCreation {
   type: 'tablet' | 'phone' | 'web';
   keyName: string;
   publicKey: string;
-  privateKey: string;
   isSecp256k1?: boolean;
 }
