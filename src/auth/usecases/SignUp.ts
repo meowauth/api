@@ -13,11 +13,11 @@ export class SignUp {
   ) {}
 
   // TODO: transactional
-  async call({ channel, token, initialDeviceKey }: SignUpInput): Promise<Account> {
+  async call({ channel, token, deviceKey }: SignUpInput): Promise<Account> {
     const loginChannel = this.loginChannels.getLoginChannel(channel);
     const socialLoginResult = await loginChannel.verifyToken(token);
 
-    const { address, custodialKey } = await this.createWallet.call(initialDeviceKey.publicKey);
+    const { address, custodialKey } = await this.createWallet.call(deviceKey.publicKey);
     const account = await this.accountRepository.create({
       alias: generateSlug(2) + '.fn',
       profileImage: socialLoginResult.profileImage,
@@ -33,7 +33,7 @@ export class SignUp {
       keyId: 1,
     });
     await this.accountRepository.createKey(address, {
-      ...initialDeviceKey,
+      ...deviceKey,
       keyId: 2,
     });
     return account;
