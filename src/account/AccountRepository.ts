@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { Service } from 'typedi';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsWhere, In, Repository } from 'typeorm';
 import { InjectRepository } from '~/utils';
 import { NotFoundError } from '../errors';
 import { AccountEntity, AccountKeyEntity, AccountPushToken } from './entities';
@@ -45,5 +45,17 @@ export class AccountRepository {
   async createKey(address: string, creation: Partial<AccountKey>): Promise<AccountKey> {
     const created = await this.accountKeyRepo.save(cloneDeep({ ...creation, address }));
     return Object.assign(new AccountKeyEntity(), created).toModel();
+  }
+
+  async registerPushToken(address: string, creation: Partial<AccountPushToken>) {
+    await this.accountPushTokenRepo.save(cloneDeep({ ...creation, address }));
+  }
+
+  async listPushTokens(address: string): Promise<AccountPushToken[]> {
+    return await this.accountPushTokenRepo.find({ where: { address } });
+  }
+
+  async removePushTokens(tokens: string[]) {
+    return await this.accountPushTokenRepo.delete({ pushToken: In(tokens) });
   }
 }

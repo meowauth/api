@@ -4,3 +4,4 @@ export * from './usecases';
 export * from './AccountRepository';
 export * from './AccountController';
 export * from './AccountConfig';
+export * from './utils';

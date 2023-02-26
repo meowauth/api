@@ -32,4 +32,8 @@ export class FirebaseService {
       throw new InvalidIdToken((err as Error).message);
     }
   }
+
+  messaging() {
+    return this.firebase.messaging();
+  }
 }
