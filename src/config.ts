@@ -1,10 +1,8 @@
 import { AuthConfig } from '~/auth';
-import { FirebaseConfig } from '~/integration/firebase';
+import { FirebaseConfig } from '~/firebase';
 import { ChildConfig, ConfigKey } from '~/utils';
 import { BlockchainConfig } from './blockchain';
 import { DatabaseConfig } from './database';
-import { GenerationConfig } from './generation/GenerationConfig';
-import { PaymentConfig } from './payment/PaymentConfig';
 
 export enum Env {
   DEVELOPMENT = 'development',
@@ -33,10 +31,4 @@ export class Config {
 
   @ChildConfig(() => FirebaseConfig)
   firebase: FirebaseConfig;
-
-  @ChildConfig(() => GenerationConfig)
-  generation: GenerationConfig;
-
-  @ChildConfig(() => PaymentConfig)
-  payment: PaymentConfig;
 }
