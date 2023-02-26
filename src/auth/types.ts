@@ -1,3 +1,5 @@
+import { AccountKeyCreation } from '../account';
+
 /**
  * [JWT](https://jwt.io)
  * @example "eyJhbGciOiJIUzI...Qedy-rosPJLzs3jArh6Vc"
@@ -45,4 +47,11 @@ export interface SignInAndUpInput {
    *  @example "eyJhbGciOiJIUzI...Qedy-rosPJLzs3jArh6Vc"
    */
   token: string;
+
+  /**
+   * The device's key.
+   */
+  deviceKey: AccountKeyCreation;
 }
+
+export interface SignUpInput extends SignInAndUpInput {}

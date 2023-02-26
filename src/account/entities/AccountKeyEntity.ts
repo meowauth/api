@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+import { AccountKey } from '../models';
 import { AccountEntity } from './AccountEntity';
 
 @Entity({ name: 'account_key' })
@@ -32,9 +33,13 @@ export class AccountKeyEntity {
   @Column({ nullable: true })
   privateKey?: string;
 
-  @Column()
+  @Column({ default: '' })
   lastUsedLocation: string;
 
   @UpdateDateColumn()
   lastUsedAt: Date;
+
+  toModel(): AccountKey {
+    return this;
+  }
 }

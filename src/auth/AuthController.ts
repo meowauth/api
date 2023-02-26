@@ -1,6 +1,6 @@
 import { Body, Post, Route, SuccessResponse, Tags } from '@tsoa/runtime';
 import { Service } from 'typedi';
-import { JWT, SignInAndUpInput } from './types';
+import { JWT, SignInAndUpInput, SignUpInput } from './types';
 import { IssueCredentials, RefreshCredentials, SignIn, SignUp } from './usecases';
 
 interface RefreshTokenRequest {
@@ -8,7 +8,7 @@ interface RefreshTokenRequest {
 }
 
 export type SignInRequest = SignInAndUpInput;
-export type SignUpRequest = SignInAndUpInput;
+export type SignUpRequest = SignUpInput;
 
 @Service()
 @Tags('Auth')
