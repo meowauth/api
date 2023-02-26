@@ -1,0 +1,38 @@
+---
+service: meowauth-api
+frameworkVersion: '3'
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: ap-northeast-2
+  environment: ${file(./serverless-load-secrets.js)}
+functions:
+  app:
+    handler: src/serverless.handler
+    timeout: 30
+    events:
+      - http: 'ANY /'
+      - http: 'ANY /{proxy+}'
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+  - serverless-domain-manager
+
+custom:
+  esbuild:
+    sourcemap: inline
+    plugins: ./serverless-esbuild-plugins.js
+  stages:
+    dev:
+      domain: meowauth.ara.today
+      cerficiateArn: arn:aws:acm:us-east-1:600288883458:certificate/f8abd878-794b-48f0-9e56-f27a888f02f3
+      stageEnviron: development
+
+  serverless-offline:
+    noPrependStageInUrl: true
+
+  customDomain:
+    domainName: ${self:custom.stages.${opt:stage, 'dev'}.domain}
+    certificateArn: ${self:custom.stages.${opt:stage, 'dev'}.cerficiateArn}
+    createRoute53Record: true

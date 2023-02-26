@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { ConfigKey } from '~/utils';
-import { FIREBASE_INTEGRATION_ENTITIES } from './integration/firebase';
+import { ACCOUNT_ENTITIES } from './account';
 
 export class DatabaseConfig {
   @ConfigKey({ env: 'DB_HOST', default: 'localhost', warnIfNotGiven: 'production' })
@@ -26,9 +26,7 @@ export const initializeDatabase = async (config: DatabaseConfig): Promise<DataSo
   const dataSource = new DataSource({
     ...config,
     type: 'mysql',
-    entities: [
-      ...FIREBASE_INTEGRATION_ENTITIES,
-    ],
+    entities: [...ACCOUNT_ENTITIES],
     synchronize: true,
     timezone: 'Z',
     logging: config.logQuery ? ['migration', 'schema', 'error'] : ['migration', 'schema'],
