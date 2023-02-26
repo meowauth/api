@@ -44,3 +44,22 @@ export async function sign(payloadHex: string, privateKeyHex: string) {
 
   return signature;
 }
+
+export async function verify(payloadHex: string, publicKey: string, signature: string) {
+  const [pubKeyX, pubKeyY] = splitDecode(publicKey);
+  const [signR, signS] = splitDecode(signature);
+
+  const payloadBuffer = Buffer.from(payloadHex, 'hex');
+  const sha3HasherSize = 256;
+  const sha3Hasher = new SHA3(sha3HasherSize);
+  const payloadBufferDigest = sha3Hasher.update(payloadBuffer).digest();
+
+  const pubKey = p256.keyFromPublic({ x: pubKeyX, y: pubKeyY });
+  return pubKey.verify(payloadBufferDigest, { r: signR, s: signS });
+}
+
+const splitDecode = (merged: string): [string, string] => {
+  const a = merged.slice(0, merged.length / 2);
+  const b = merged.slice(merged.length / 2);
+  return [a, b];
+};
