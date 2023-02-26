@@ -6,6 +6,7 @@ export interface AccountKey {
   isCustodial: boolean;
   publicKey: string;
   privateKey?: string;
+  weight: number;
   lastUsedLocation: string;
   lastUsedAt: Date;
 }

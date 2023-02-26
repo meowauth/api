@@ -33,6 +33,9 @@ export class AccountKeyEntity {
   @Column({ nullable: true })
   privateKey?: string;
 
+  @Column({ default: 500 })
+  weight: number;
+
   @Column({ default: '' })
   lastUsedLocation: string;
 
