@@ -5,5 +5,11 @@ export interface SignRequest {
   displayType: 'add-key' | 'revoke-key' | 'nft-send' | 'ft-send' | 'general-tx';
   displayMetadata: { [k: string]: string };
   payload: string;
-  quorum: string[];
+  quorum: QuorumEntry[];
+}
+
+export interface QuorumEntry {
+  keyId: number;
+  weight: number;
+  signature: string;
 }

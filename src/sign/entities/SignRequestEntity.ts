@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { SignRequest } from '../models';
+import { QuorumEntry, SignRequest } from '../models';
 
 @Entity({ name: 'sign_request' })
 export class SignRequestEntity {
@@ -22,7 +22,7 @@ export class SignRequestEntity {
   payload: string;
 
   @Column({ type: 'simple-json', default: [] })
-  quorum: string[];
+  quorum: QuorumEntry[];
 
   @CreateDateColumn()
   createdAt: Date;
